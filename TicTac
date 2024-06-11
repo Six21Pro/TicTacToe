@@ -1,0 +1,118 @@
+import java.util.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+
+import java.util.Scanner;
+public class TicTac
+{
+    // instance variables - replace the example below with your own
+    private int x;
+
+    /**
+     * Constructor for objects of class TicTac
+     */
+
+    public static void main(String[] args)//Cameron Whistler-some java review-June 2024
+    {
+        //Scanner scan = new Scanner(System.in);
+
+        // System.out.print("Enter number of rows: ");
+        int rows = 3;//scan.nextInt();
+
+        //System.out.print("Enter number of columns: ");
+        int columns =3;//= scan.nextInt();
+
+        int winOccur=0;
+        String[][] multidimensionalArray= new String[rows][columns];
+
+        // Now you can use the array like a regular
+        // 2-dimensional array
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                multidimensionalArray[i][j]= "a";
+            }
+        }
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                System.out.print(multidimensionalArray[i][j]+ "|");
+            }
+
+            System.out.println();
+        }
+
+        for (int u = 0; u < 9; u++){
+
+            changeVal(multidimensionalArray,u);
+            //System.out.print(multidimensionalArray[0][0]);
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < columns; j++) {
+                    System.out.print(multidimensionalArray[i][j]+ "|");
+                }
+
+                System.out.println();
+            }
+            winOccur=checkWin(multidimensionalArray,u);
+            if(winOccur==10){
+                u=10;}
+            System.out.println();
+        }
+        //changeVal2(multidimensionalArray);
+
+        // scan.close();
+    }
+
+    public static int changeVal(String mdA[][], int xo){//This method for changing a square
+        int c=0;
+
+        Scanner scan = new Scanner(System.in);
+
+        System.out.println("change a val");
+        //String rows =scan.next();
+        int row =scan.nextInt();
+        while (row >2 || row <0){
+            System.out.println("Invalid input! Try again");
+            row =scan.nextInt();
+        }
+        int col = scan.nextInt();
+
+        if (mdA[row][col]=="a"){
+            if (xo % 2==0){
+                mdA[row][col]="X";}
+            else {
+                mdA[row][col]="O";}
+        }
+        else{System.out.println("This square was already altered! Select an unaltered square ;]" );
+
+            changeVal(mdA,xo);
+        }
+
+        //System.out.print(mdA[row][col]);
+        return c;
+    }   
+
+    public static int checkWin(String mdA[][],int xo){//wonder if there is a less cumbersome way to do this
+        if (
+        (mdA[0][0]==mdA[0][1]&&mdA[0][1]==mdA[0][2]&&mdA[0][0]!="a")||//wonder if there is a less cumbersome way to do this
+        (mdA[1][0]==mdA[1][1]&&mdA[1][1]==mdA[1][2]&&mdA[1][0]!="a")||//horizontals
+        (mdA[2][0]==mdA[2][1]&&mdA[2][1]==mdA[2][2]&&mdA[2][0]!="a")||
+
+        (mdA[0][0]==mdA[1][0]&&mdA[1][0]==mdA[2][0]&&mdA[0][0]!="a")||//verticals
+        (mdA[0][1]==mdA[1][1]&&mdA[1][1]==mdA[2][1]&&mdA[0][1]!="a")||
+        (mdA[0][2]==mdA[1][2]&&mdA[1][2]==mdA[2][2]&&mdA[0][2]!="a")||
+
+        (mdA[0][0]==mdA[1][1]&&mdA[1][1]==mdA[2][2]&&mdA[0][0]!="a")||
+        (mdA[0][2]==mdA[1][1]&&mdA[1][1]==mdA[2][0]&&mdA[1][1]!="a")
+        ){
+            if(xo % 2==0){
+                System.out.println("X's player wins!!!");
+                return 10;}
+            else{
+                System.out.println("O's player wins!!!");
+                return 10;
+            }
+        }
+        else{
+
+            return 0;}
+    }
+}
